@@ -1,12 +1,11 @@
-try:
-    from fastapi import FastAPI
-except ModuleNotFoundError as exc:
-    raise RuntimeError(
-        "FastAPI is not installed. Run: python -m pip install fastapi"
-    ) from exc
+from fastapi import FastAPI
+from app.routes.pdf_routes import router
 
 app = FastAPI()
 
+app.include_router(router)
+
+
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def home():
+    return {"message": "Certificate Scanner API is running"}
