@@ -474,7 +474,7 @@ def scan_certificate(pdf_path):
 
         pages = convert_from_path(
             pdf_path,
-            dpi=300,
+            dpi=250,
             first_page=1,
             last_page=1
         )
