@@ -6,7 +6,7 @@ import ProcessingStatus from '../components/home/ProcessingStatus';
 import SummaryCards from '../components/home/SummaryCards';
 import FilterBar from '../components/home/FilterBar';
 import VerificationTable from '../components/home/VerificationTable';
-import { processCertificates } from '../services/dummyProcessor';
+import { processCertificates } from '../services/certificateProcessor';
 
 export default function HomePage() {
   const [files, setFiles] = useState([]);
@@ -74,8 +74,8 @@ export default function HomePage() {
         }
       });
     } catch (error) {
-      console.error('Error during verification simulation:', error);
-      alert('An unexpected error occurred during processing.');
+      console.error('Error during certificate verification:', error);
+      alert(error?.message || 'An unexpected error occurred during processing.');
     } finally {
       setAppStatus('completed');
       setShowResults(true);
