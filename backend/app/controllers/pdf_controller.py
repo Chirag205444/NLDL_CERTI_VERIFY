@@ -4,6 +4,7 @@ from pathlib import Path
 
 from app.services.qr_scan import scan_certificate
 from app.services.ocr_scan import scan_ocr
+from app.services.compare_res import compare_results
 
 
 def scan_pdfs(files):
@@ -46,13 +47,25 @@ def scan_pdfs(files):
             print(f"OCR completed -> {file.filename}")
 
             # --------------------------------
-            # Combine both results
+            # STEP 3: COMPARE QR & OCR
+            # --------------------------------
+
+            comparison = compare_results(
+                qr_result,
+                ocr_result
+            )
+
+            print(f"Comparison completed -> {file.filename}")
+
+            # --------------------------------
+            # Combine all results
             # --------------------------------
 
             results.append({
                 "file": file.filename,
                 "qr_result": qr_result,
-                "ocr_result": ocr_result
+                "ocr_result": ocr_result,
+                "comparison": comparison
             })
 
         except Exception as e:
@@ -64,6 +77,12 @@ def scan_pdfs(files):
                 },
                 "ocr_result": {
                     "status": "Failed"
+                },
+                "comparison": {
+                    "Name": "Failed",
+                    "Course": "Failed",
+                    "Completed On": "Failed",
+                    "mismatch_count": 0
                 },
                 "error": str(e)
             })
