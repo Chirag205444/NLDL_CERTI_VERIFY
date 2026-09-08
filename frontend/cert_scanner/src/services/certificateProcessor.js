@@ -12,7 +12,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
  * @param {string} fallbackFilename - Fallback name if file property is missing
  * @returns {Object} Mapped frontend result item
  */
-function mapBackendResult(item, fallbackFilename) {
+function mapBackendResult(item, fallbackFilename, fileObject = null) {
   const ocr = item.ocr_result || {};
   const qr = item.qr_result || {};
   const backendComp = item.comparison || {};
@@ -68,6 +68,7 @@ function mapBackendResult(item, fallbackFilename) {
 
   return {
     file: item.file || fallbackFilename,
+    fileObject: fileObject || null,
     visual_result: visualResult,
     qr_result: qrResult,
     comparison,
@@ -127,7 +128,7 @@ export async function processCertificates(files, onProgress) {
 
   const results = rawResults.map((item, index) => {
     const fallbackName = files[index]?.name || `certificate_${index + 1}.pdf`;
-    return mapBackendResult(item, fallbackName);
+    return mapBackendResult(item, fallbackName, files[index] || null);
   });
 
   // Provide progress updates for each result to match HomePage handler expectations

@@ -55,7 +55,7 @@ export default function LandingPage() {
             <button
               className="px-8 py-3.5 text-base font-semibold text-[#0a1128] bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2 w-full sm:w-auto group"
             >
-              Watch Demo
+              How it works?
               <span className="flex items-center justify-center w-5 h-5 rounded-full bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">
                 <svg className="w-2.5 h-2.5 translate-x-[0.5px]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />

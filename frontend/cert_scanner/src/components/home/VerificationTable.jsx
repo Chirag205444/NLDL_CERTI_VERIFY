@@ -35,6 +35,16 @@ export default function VerificationTable({ results }) {
     );
   };
 
+  const openCertificate = (file) => {
+    if (!file) return;
+
+    const url = URL.createObjectURL(file);
+    window.open(url, '_blank');
+
+    // Clean up the temporary URL after a reasonable delay.
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
   return (
     <div className="w-full overflow-x-auto bg-white border border-slate-200 rounded-xl shadow-sm">
       <table className="w-full text-left border-collapse min-w-[1000px]">
@@ -69,7 +79,18 @@ export default function VerificationTable({ results }) {
           {results.map((res, idx) => (
             <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
               <td className="px-4 py-3 text-sm font-medium text-[#0a1128] border-r border-slate-100 truncate max-w-[12rem]" title={res.filename}>
-                {res.filename}
+                {res.fileObject ? (
+                  <button
+                    type="button"
+                    onClick={() => openCertificate(res.fileObject)}
+                    className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer truncate block max-w-full text-left font-medium focus:outline-none"
+                    title={`Open ${res.filename}`}
+                  >
+                    {res.filename}
+                  </button>
+                ) : (
+                  <span>{res.filename}</span>
+                )}
               </td>
 
               {/* Visual Result Columns */}
